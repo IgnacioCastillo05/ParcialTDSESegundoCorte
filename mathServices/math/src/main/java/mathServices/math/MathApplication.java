@@ -1,4 +1,4 @@
-package mathServices.math;
+package math.src.main.java.mathServices.math;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
