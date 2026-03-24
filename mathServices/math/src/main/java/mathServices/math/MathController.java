@@ -19,15 +19,24 @@ public class MathController {
     @GetMapping("/pellseq")
     public ArrayList pellseq(@RequestParam int value) {
 
-        int n0 = 0;
-        int n1 = 1;
-        ArrayList Arr = new ArrayList();
-        for (int i = 0; i < value; i++) {
-            int n2 = 2 * n1 + n0;
+        int n0 = 0; 
+        int n1 = 1; 
+        ArrayList<Integer> Arr = new ArrayList<>();
+
+
+        Arr.add(n0); 
+        if (value >= 1) {
+            Arr.add(n1); 
+        }
+
+
+        for (int i = 2; i <= value; i++) {
+            int n2 = 2 * n1 + n0; 
             n0 = n1;
             n1 = n2;
             Arr.add(n2);
         }
+
         return Arr;
     }
 }
