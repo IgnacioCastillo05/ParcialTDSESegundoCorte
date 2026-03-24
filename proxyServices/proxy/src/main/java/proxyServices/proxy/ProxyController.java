@@ -1,4 +1,4 @@
-package proxyServices.proxy;
+package proxy.src.main.java.proxyServices.proxy;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
