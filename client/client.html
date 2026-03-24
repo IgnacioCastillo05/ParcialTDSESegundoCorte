@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Math Client</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <h1>Math Services Client</h1>
+
+    <h3>Número pi</h3>
+    <input type="button" value="Submit" onclick="loadPi()">
+    <div id="pirespmsg"></div>
+
+    <h3>Secuencia de Pell</h3>
+    <label>Número:</label>
+    <input type="text" id="pellnum" name="pellnum" value="10">
+    <input type="button" value="Submit" onclick="loadPellSeq()">
+    <div id="pellseqrespmsg"></div>
+    </h3>
+    <script>
+        const PROXY_URL = "http://localhost:8080";
+
+        function getId(id){
+            return document.getElementById(id);
+        }
+
+        function callProxy(fn, params){
+            const query = Object.entries(params) 
+                .map(([k, v]) => `${k}=${v}`)
+                .join('&');
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function () {
+                document.getElementById(fn + "Result").innerHTML = <b Style="color:red;">Error conectando al proxy</b>;
+            }
+            xhttp.open("GET", `${PROXY_URL}/${fn}?${query}`);
+            xhttp.send();
+        }
+    </script>
+</body>
+</html>
