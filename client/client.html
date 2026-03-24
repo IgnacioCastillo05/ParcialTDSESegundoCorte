@@ -45,6 +45,7 @@
                 getId(resultId).innerHTML = "<b style='color:red;'>Error conectando al proxy</b>";
             };
             xhttp.open("GET", `${PROXY_URL}/${fn}?${query}`);
+            xhttp.setRequestHeader("Authorization", "Basic " + btoa("user:84a5e7a8-c76e-4216-a8f2-4d145a80eb3caun"));
             xhttp.send();
         }
 
