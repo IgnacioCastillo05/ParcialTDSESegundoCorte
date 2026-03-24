@@ -19,24 +19,38 @@
     <input type="text" id="pellnum" name="pellnum" value="10">
     <input type="button" value="Submit" onclick="loadPellSeq()">
     <div id="pellseqrespmsg"></div>
-    </h3>
+
     <script>
         const PROXY_URL = "http://ec2-54-211-247-216.compute-1.amazonaws.com:8080";
 
-        function getId(id){
+        function getId(id) {
             return document.getElementById(id);
         }
 
-        function callProxy(fn, params){
-            const query = Object.entries(params) 
+        function callProxy(fn, params, resultId) {
+            const query = Object.entries(params)
                 .map(([k, v]) => `${k}=${v}`)
                 .join('&');
             const xhttp = new XMLHttpRequest();
             xhttp.onload = function () {
-                document.getElementById(fn + "Result").innerHTML = <b Style="color:red;">Error conectando al proxy</b>;
-            }
+                if (xhttp.status === 200) {
+                    // Mostrar la respuesta del servidor
+                    getId(resultId).innerHTML = xhttp.responseText;
+                } else {
+                    // Mostrar un mensaje de error si la solicitud falla
+                    getId(resultId).innerHTML = "<b style='color:red;'>Error conectando al proxy</b>";
+                }
+            };
+            xhttp.onerror = function () {
+                getId(resultId).innerHTML = "<b style='color:red;'>Error conectando al proxy</b>";
+            };
             xhttp.open("GET", `${PROXY_URL}/${fn}?${query}`);
             xhttp.send();
+        }
+
+        function loadPellSeq() {
+            const pellNum = getId("pellnum").value;
+            callProxy("pellSeq", { n: pellNum }, "pellseqrespmsg");
         }
     </script>
 </body>
